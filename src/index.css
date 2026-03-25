@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Patrick+Hand&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --font-display: var(--app-font-display);
+  --font-sans: var(--app-font-sans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  /* Warm parchment / cozy RPG palette */
+  --background: 42 30% 96%;
+  --foreground: 25 50% 20%;
+  --border: 30 30% 75%;
+  --input: 42 30% 90%;
+  --ring: 140 50% 45%;
+  --card: 42 35% 99%;
+  --card-foreground: 25 50% 20%;
+  --popover: 42 35% 99%;
+  --popover-foreground: 25 50% 20%;
+  --primary: 140 50% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 42 60% 85%;
+  --secondary-foreground: 25 50% 20%;
+  --muted: 42 20% 88%;
+  --muted-foreground: 25 20% 50%;
+  --accent: 25 80% 65%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+  --app-font-display: 'Patrick Hand', cursive;
+  --app-font-sans: 'Nunito', sans-serif;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--app-font-sans);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--app-font-display);
+  }
+}
+
+/* ── Sketch / hand-drawn utilities ── */
+@layer utilities {
+  .sketch-border {
+    border: 2px solid rgba(0,0,0,0.12);
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.14), 0 2px 6px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55);
+  }
+  .sketch-border-sm {
+    border: 1.5px solid rgba(0,0,0,0.10);
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.45);
+  }
+  .sketch-shadow {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.16), 0 3px 8px rgba(0,0,0,0.10);
+  }
+  .sketch-shadow-hover:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+    transform: translateY(2px);
+  }
+  .sketch-shadow-active:active {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+    transform: translateY(4px);
+  }
+
+  /* Zone colors */
+  .zone-poverty  { --zone-color: #e74c3c; --zone-bg: #fce4e4; }
+  .zone-hunger   { --zone-color: #f39c12; --zone-bg: #fef9e7; }
+  .zone-health   { --zone-color: #27ae60; --zone-bg: #e8f8f0; }
+  .zone-education{ --zone-color: #8e44ad; --zone-bg: #f3e8fd; }
+  .zone-equality { --zone-color: #e67e22; --zone-bg: #fef0e6; }
+
+  /* Floating animation */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Bounce in */
+  .animate-bounce-in {
+    animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  @keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  /* Healing shimmer */
+  .animate-heal {
+    animation: healPulse 2s ease-in-out infinite;
+  }
+  @keyframes healPulse {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.2) saturate(1.3); }
+  }
+
+  /* Walk wobble */
+  .animate-walk {
+    animation: walkWobble 0.4s ease-in-out infinite alternate;
+  }
+  @keyframes walkWobble {
+    0% { transform: rotate(-3deg) translateY(0); }
+    100% { transform: rotate(3deg) translateY(-4px); }
+  }
+
+  /* Sparkle particle */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    animation: sparkleFly 1.2s ease-out forwards;
+  }
+  @keyframes sparkleFly {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx, 0), var(--ty, -60px)) scale(0); opacity: 0; }
+  }
+
+  /* Isometric map tile glow */
+  .map-glow {
+    filter: drop-shadow(0 0 12px var(--zone-color));
+  }
+
+  /* Pulsing ring for available zones */
+  .zone-pulse::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 3px solid var(--zone-color, #4CAF50);
+    animation: zonePing 1.5s ease-out infinite;
+  }
+  @keyframes zonePing {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* Game screen transition */
+  .screen-enter {
+    animation: screenEnter 0.4s ease-out forwards;
+  }
+  @keyframes screenEnter {
+    from { opacity: 0; transform: scale(0.97) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Progress bar fill */
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #81C784);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+  }
+
+  /* RPG bounce (for NPC ! indicator) */
+  @keyframes bounce {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-5px); }
+  }
+
+  /* Player shadow */
+  .player-shadow {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 12px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 50%;
+  }
+
+  /* ── CHIBI WALK ANIMATION ─────────────────────────────── */
+
+  /* Smooth leg step — 0% is back, 50% is forward, back to back */
+  @keyframes chibi-step-l {
+    0%   { transform: rotate(-18deg); }
+    50%  { transform: rotate(18deg);  }
+    100% { transform: rotate(-18deg); }
+  }
+  @keyframes chibi-step-r {
+    0%   { transform: rotate(18deg);  }
+    50%  { transform: rotate(-18deg); }
+    100% { transform: rotate(18deg);  }
+  }
+
+  /* Arm swing — opposite to legs for natural gait */
+  @keyframes chibi-arm-l {
+    0%   { transform: rotate(16deg);  }
+    50%  { transform: rotate(-16deg); }
+    100% { transform: rotate(16deg);  }
+  }
+  @keyframes chibi-arm-r {
+    0%   { transform: rotate(-16deg); }
+    50%  { transform: rotate(16deg);  }
+    100% { transform: rotate(-16deg); }
+  }
+
+  /* Gentle body bob */
+  @keyframes chibi-bob {
+    0%, 100% { transform: translateY(0px);  }
+    25%, 75%  { transform: translateY(-3px); }
+    50%       { transform: translateY(0px);  }
+  }
+
+  /* Idle: pivot points set, transform explicitly reset so idle = straight */
+  .chibi-leg-l {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    transform: rotate(0deg);
+  }
+  .chibi-leg-r {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    transform: rotate(0deg);
+  }
+  .chibi-arm-l {
+    transform-box: fill-box;
+    transform-origin: 50% 10%;
+    transform: rotate(0deg);
+  }
+  .chibi-arm-r {
+    transform-box: fill-box;
+    transform-origin: 50% 10%;
+    transform: rotate(0deg);
+  }
+
+  /* Walking: run animations smoothly */
+  .player-walking .chibi-leg-l {
+    animation: chibi-step-l 0.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  .player-walking .chibi-leg-r {
+    animation: chibi-step-r 0.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  .player-walking .chibi-arm-l {
+    animation: chibi-arm-l 0.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+  .player-walking .chibi-arm-r {
+    animation: chibi-arm-r 0.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  /* Whole-body bob when walking */
+  .player-walking svg {
+    animation: chibi-bob 0.5s ease-in-out infinite;
+  }
+}
+
+/* ── Wandering pet animations ── */
+@keyframes petWander1 {
+  0%   { transform: translateX(0px) scaleX(1); }
+  50%  { transform: translateX(55px) scaleX(1); }
+  100% { transform: translateX(0px) scaleX(-1); }
+}
+@keyframes petWander2 {
+  0%   { transform: translateX(0px) scaleX(-1); }
+  50%  { transform: translateX(75px) scaleX(-1); }
+  100% { transform: translateX(0px) scaleX(1); }
+}
+@keyframes petWander3 {
+  0%   { transform: translateX(0px) translateY(0px) scaleX(1); }
+  33%  { transform: translateX(40px) translateY(-8px) scaleX(1); }
+  66%  { transform: translateX(20px) translateY(5px) scaleX(-1); }
+  100% { transform: translateX(0px) translateY(0px) scaleX(-1); }
+}
+@keyframes petWander4 {
+  0%   { transform: translateX(0px) scaleX(1); }
+  100% { transform: translateX(80px) scaleX(-1); }
+}
+@keyframes petWander5 {
+  0%   { transform: translateX(10px) translateY(-4px) scaleX(1); }
+  50%  { transform: translateX(60px) translateY(6px) scaleX(-1); }
+  100% { transform: translateX(0px) translateY(-4px) scaleX(1); }
+}
+@keyframes petWander6 {
+  0%   { transform: translateX(0) scaleX(1) rotate(0deg); }
+  50%  { transform: translateX(50px) scaleX(1) rotate(5deg); }
+  100% { transform: translateX(0) scaleX(-1) rotate(0deg); }
+}
